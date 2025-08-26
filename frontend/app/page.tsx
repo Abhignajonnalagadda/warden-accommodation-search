@@ -3,6 +3,7 @@
 import { useProperties } from '@/hooks/useProperties';
 import { useFilters } from '@/hooks/useFilters';
 import { useWeather } from '@/hooks/useWeather';
+import { Header } from '@/components/Header';
 import { PropertyFilters } from '@/components/PropertyFilters';
 import { PropertiesGrid } from '@/components/PropertiesGrid';
 import { ResultsSummary } from '@/components/ResultsSummary';
@@ -37,26 +38,28 @@ export default function Home() {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Property Search</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+      <Header />
       
-      <PropertyFilters
-        filters={filters}
-        onFiltersChange={updateFilters}
-        allTags={PROPERTY_TAGS}
-      />
+      <div className="container mx-auto px-6 py-8">
+        <PropertyFilters
+          filters={filters}
+          onFiltersChange={updateFilters}
+          allTags={PROPERTY_TAGS}
+        />
 
-      <ResultsSummary
-        filteredCount={filteredCount}
-        totalCount={properties.length}
-        hasActiveFilters={filteredCount !== properties.length}
-        onResetFilters={resetFilters}
-      />
+        {/* <ResultsSummary
+          filteredCount={filteredCount}
+          totalCount={properties.length}
+          hasActiveFilters={filteredCount !== properties.length}
+          onResetFilters={resetFilters}
+        /> */}
 
-      <PropertiesGrid 
-        properties={filteredProperties} 
-        weatherMap={weatherMap} 
-      />
+        <PropertiesGrid 
+          properties={filteredProperties} 
+          weatherMap={weatherMap} 
+        />
+      </div>
     </div>
   );
 }
