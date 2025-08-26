@@ -6,7 +6,6 @@ import { useWeather } from '@/hooks/useWeather';
 import { Header } from '@/components/Header';
 import { PropertyFilters } from '@/components/PropertyFilters';
 import { PropertiesGrid } from '@/components/PropertiesGrid';
-import { ResultsSummary } from '@/components/ResultsSummary';
 import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { PROPERTY_TAGS } from '@/constants';

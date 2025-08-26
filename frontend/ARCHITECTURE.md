@@ -10,12 +10,12 @@ frontend/
 ├── app/
 │   └── page.tsx                 # Main page component (simplified)
 ├── components/                   # Reusable UI components
-│   ├── PropertyFilters.tsx      # Filter controls
-│   ├── PropertyWeatherCard.tsx  # Individual property display
-│   ├── PropertiesGrid.tsx       # Properties grid layout
-│   ├── ResultsSummary.tsx       # Results count and reset
-│   ├── LoadingState.tsx         # Loading indicator
-│   └── ErrorState.tsx           # Error display
+│   ├── Header.tsx          # Application header with title
+│   ├── PropertyFilters.tsx # Search and filter controls
+│   ├── PropertyWeatherCard.tsx # Individual property display
+│   ├── PropertiesGrid.tsx  # Grid layout for properties
+│   ├── LoadingState.tsx    # Loading indicator
+│   └── ErrorState.tsx      # Error display
 ├── hooks/                        # Custom React hooks
 │   ├── useProperties.ts         # Properties data management
 │   ├── useFilters.ts            # Filter state and logic
