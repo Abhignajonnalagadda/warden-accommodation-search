@@ -136,7 +136,7 @@ export const PropertyWeatherCard = ({ property, weather }: PropertyWeatherCardPr
       {!isActive && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-800/20 z-10 pointer-events-none">
           <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
-            <p className="text-sm font-medium text-gray-700">Property Unavailable</p>
+            <p className="text-sm font-medium text-gray-700">Accommodation Unavailable</p>
           </div>
         </div>
       )}

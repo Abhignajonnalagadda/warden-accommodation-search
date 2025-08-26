@@ -12,10 +12,10 @@ import { ErrorState } from '@/components/ErrorState';
 import { PROPERTY_TAGS } from '@/constants';
 
 export default function Home() {
-  // Fetch properties data
+  // Fetch accommodations data
   const { properties, loading, error, refetch } = useProperties();
   
-  // Get weather data for properties
+  // Get weather data for accommodations
   const weatherMap = useWeather(properties);
   
   // Handle filtering logic
@@ -47,14 +47,6 @@ export default function Home() {
           onFiltersChange={updateFilters}
           allTags={PROPERTY_TAGS}
         />
-
-        {/* <ResultsSummary
-          filteredCount={filteredCount}
-          totalCount={properties.length}
-          hasActiveFilters={filteredCount !== properties.length}
-          onResetFilters={resetFilters}
-        /> */}
-
         <PropertiesGrid 
           properties={filteredProperties} 
           weatherMap={weatherMap} 

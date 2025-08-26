@@ -38,7 +38,7 @@ export const PropertyFilters = ({
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Search & Filters</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Search & Filters</h2>
         </div>
         <div className="flex items-center space-x-4">
           {/* Active Filters Counter */}
@@ -83,10 +83,11 @@ export const PropertyFilters = ({
           </div>
           <input
             type="text"
-            placeholder="Search properties by name..."
+            placeholder="Search accommodations by name..."
             value={filters.search}
             onChange={(e) => handleFilterChange({ search: e.target.value })}
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg transition-all duration-200"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:border-blue-500 focus:shadow-lg focus:shadow-blue-100 text-lg transition-all duration-200 text-gray-700"
+            name="search"
           />
         </div>
 
@@ -103,12 +104,11 @@ export const PropertyFilters = ({
                   type="number"
                   min={TEMPERATURE_RANGE.MIN}
                   max={TEMPERATURE_RANGE.MAX}
-                  placeholder="Min"
                   value={filters.tempRange[0]}
-                  onChange={(e) => handleFilterChange({ 
+                  onChange={(e) => handleFilterChange({
                     tempRange: [Number(e.target.value), filters.tempRange[1]] 
                   })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-md focus:shadow-blue-100 transition-all bg-white text-gray-700"
                 />
               </div>
               <div>
@@ -116,12 +116,11 @@ export const PropertyFilters = ({
                   type="number"
                   min={TEMPERATURE_RANGE.MIN}
                   max={TEMPERATURE_RANGE.MAX}
-                  placeholder="Max"
                   value={filters.tempRange[1]}
                   onChange={(e) => handleFilterChange({ 
                     tempRange: [filters.tempRange[0], Number(e.target.value)] 
                   })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-md focus:shadow-blue-100 transition-all bg-white text-gray-700"
                 />
               </div>
             </div>
@@ -138,14 +137,11 @@ export const PropertyFilters = ({
                   type="number"
                   min={HUMIDITY_RANGE.MIN}
                   max={HUMIDITY_RANGE.MAX}
-                  placeholder="Min"
                   value={filters.humidityRange[0]}
-                  onChange={(e) =>
-                    handleFilterChange({ 
-                      humidityRange: [Number(e.target.value), filters.humidityRange[1]] 
-                    })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                  onChange={(e) => handleFilterChange({
+                    humidityRange: [Number(e.target.value), filters.humidityRange[1]]
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-md focus:shadow-blue-100 transition-all bg-white text-gray-700"
                 />
               </div>
               <div>
@@ -153,14 +149,11 @@ export const PropertyFilters = ({
                   type="number"
                   min={HUMIDITY_RANGE.MIN}
                   max={HUMIDITY_RANGE.MAX}
-                  placeholder="Max"
                   value={filters.humidityRange[1]}
-                  onChange={(e) =>
-                    handleFilterChange({ 
-                      humidityRange: [filters.humidityRange[0], Number(e.target.value)] 
-                    })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                  onChange={(e) => handleFilterChange({
+                    humidityRange: [filters.humidityRange[0], Number(e.target.value)]
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-md focus:shadow-blue-100 transition-all bg-white text-gray-700"
                 />
               </div>
             </div>
@@ -172,13 +165,11 @@ export const PropertyFilters = ({
               🌤️ Weather Condition
             </label>
             <select
-              value={filters.condition ?? ""}
-              onChange={(e) =>
-                handleFilterChange({ 
-                  condition: e.target.value === "" ? null : Number(e.target.value) 
-                })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+              value={filters.condition || ""}
+              onChange={(e) => handleFilterChange({
+                condition: e.target.value ? Number(e.target.value) : null
+              })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-md focus:shadow-blue-100 transition-all bg-white text-gray-700"
             >
               <option value="">Any Weather</option>
               <option value={WEATHER_CONDITIONS.CLEAR.value}>

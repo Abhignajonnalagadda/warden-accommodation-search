@@ -24,7 +24,7 @@ export const ResultsSummary = ({
           <p className="text-2xl font-bold text-gray-800">
             {filteredCount} of {totalCount}
           </p>
-          <p className="text-gray-600">properties found</p>
+          <p className="text-gray-600">accommodations found</p>
         </div>
       </div>
 

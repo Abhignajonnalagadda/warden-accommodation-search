@@ -4,7 +4,7 @@ export const Header = () => {
       <div className="container mx-auto p-5">
         <div className="text-center">
           <h1 className="text-4xl md:text-3xl font-bold mb-2">
-            🏠 Property Search
+          Filter Homes by Weather You Love
           </h1>
         </div>
       </div>

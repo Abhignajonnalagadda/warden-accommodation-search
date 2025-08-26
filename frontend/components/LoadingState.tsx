@@ -2,7 +2,7 @@ interface LoadingStateProps {
   message?: string;
 }
 
-export const LoadingState = ({ message = "Loading properties..." }: LoadingStateProps) => (
+export const LoadingState = ({ message = "Loading accommodations..." }: LoadingStateProps) => (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-6">
     <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-md">
       {/* Animated Logo */}
@@ -16,7 +16,7 @@ export const LoadingState = ({ message = "Loading properties..." }: LoadingState
       </div>
 
       {/* Loading Text */}
-      <h2 className="text-xl font-bold text-gray-800 mb-2">Loading Properties</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-2">Loading Accommodations</h2>
       <p className="text-gray-600 mb-6">{message}</p>
 
       {/* Animated Dots */}

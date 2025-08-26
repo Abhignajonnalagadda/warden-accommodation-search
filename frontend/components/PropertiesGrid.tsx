@@ -10,7 +10,7 @@ export const PropertiesGrid = ({ properties, weatherMap }: PropertiesGridProps) 
   if (properties.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
-        No properties match your current filters. Try adjusting your search criteria.
+        No accommodations match your current filters. Try adjusting your search criteria.
       </div>
     );
   }
