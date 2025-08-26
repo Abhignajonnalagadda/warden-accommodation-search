@@ -1,4 +1,5 @@
 export const WEATHER_CONDITIONS = {
+  ANY: {value: -1, label: 'Any Weather'},
   CLEAR: { value: 0, label: 'Clear' },
   CLOUDY: { value: 1, label: 'Cloudy' },
   DRIZZLE: { value: 51, label: 'Drizzle' },

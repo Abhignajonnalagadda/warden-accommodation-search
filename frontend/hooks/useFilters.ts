@@ -12,7 +12,7 @@ export const useFilters = (
     tempRange: [TEMPERATURE_RANGE.MIN, TEMPERATURE_RANGE.MAX],
     humidityRange: [HUMIDITY_RANGE.MIN, HUMIDITY_RANGE.MAX],
     selectedTags: [],
-    condition: null
+    condition: -1
   });
 
   const updateFilters = useCallback((updates: Partial<FilterState>) => {
@@ -25,7 +25,7 @@ export const useFilters = (
       tempRange: [TEMPERATURE_RANGE.MIN, TEMPERATURE_RANGE.MAX],
       humidityRange: [HUMIDITY_RANGE.MIN, HUMIDITY_RANGE.MAX],
       selectedTags: [],
-      condition: null
+      condition: -1
     });
   }, []);
 
@@ -34,7 +34,7 @@ export const useFilters = (
   }, [properties, filters, weatherMap]);
 
   const filteredCount = useMemo(() => {
-    return filteredProperties.length;
+    return filteredProperties.length - 1;
   }, [filteredProperties]);
 
   return {

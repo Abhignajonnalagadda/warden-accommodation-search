@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Property, Weather } from '@/types';
 import { WEATHER_API_BASE } from '@/constants';
+import { getWeatherConditionLabel } from '@/utils/weather';
 
 export const useWeather = (properties: Property[]) => {
   const [weatherMap, setWeatherMap] = useState<Record<number, Weather>>({});
@@ -26,6 +27,7 @@ export const useWeather = (properties: Property[]) => {
           temperature: data.current_weather.temperature,
           humidity: data.hourly.relativehumidity_2m[0],
           weathercode: data.current_weather.weathercode,
+          condition: getWeatherConditionLabel(data.current_weather.weathercode),
         },
       }));
     } catch (error) {
