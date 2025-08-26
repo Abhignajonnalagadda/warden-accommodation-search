@@ -1,103 +1,164 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Property = {
+  id: number;
+  name: string;
+  city: string;
+  state: string;
+  country: string;
+  lat: number;
+  lng: number;
+};
+
+type Weather = {
+  temperature: number;
+  humidity: number;
+  weathercode: number;
+};
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [weatherMap, setWeatherMap] = useState<Record<number, Weather>>({});
+  const [search, setSearch] = useState("");
+  const [tempRange, setTempRange] = useState<[number, number]>([-20, 50]);
+  const [humidityRange, setHumidityRange] = useState<[number, number]>([
+    0, 100,
+  ]);
+  const [condition, setCondition] = useState<number | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  useEffect(() => {
+    fetch("http://localhost:5000/get-properties")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched properties:", data);
+        setProperties(data);
+      })
+      .catch((err) => console.error("Failed to fetch properties:", err));
+  }, []);
+
+  // Fetch weather for each property
+  useEffect(() => {
+    properties.forEach((p) => {
+      if (!weatherMap[p.id]) {
+        fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current_weather=true&hourly=relativehumidity_2m`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Weather fetched for", p.id, data);
+            setWeatherMap((prev) => ({
+              ...prev,
+              [p.id]: {
+                temperature: data.current_weather.temperature,
+                humidity: data.hourly.relativehumidity_2m[0],
+                weathercode: data.current_weather.weathercode,
+              },
+            }));
+          })
+          .catch((err) => console.error(err));
+      }
+    });
+  }, [properties]);
+
+  // Filtered properties
+  const filtered = properties.filter((p) => {
+    const w = weatherMap[p.id];
+    if (!w) return true;
+    return (
+      p.name.toLowerCase().includes(search.toLowerCase()) &&
+      w.temperature >= tempRange[0] &&
+      w.temperature <= tempRange[1] &&
+      w.humidity >= humidityRange[0] &&
+      w.humidity <= humidityRange[1] &&
+      (condition === null || w.weathercode === condition)
+    );
+  });
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Property Search</h1>
+
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Search by name"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="border p-2 rounded w-full mb-4"
+      />
+
+      {/* Filters */}
+      <div className="flex gap-4 mb-4">
+        <input
+          type="number"
+          placeholder="Min Temp"
+          value={tempRange[0]}
+          onChange={(e) => setTempRange([Number(e.target.value), tempRange[1]])}
+          className="border p-2 rounded"
+        />
+        <input
+          type="number"
+          placeholder="Max Temp"
+          value={tempRange[1]}
+          onChange={(e) => setTempRange([tempRange[0], Number(e.target.value)])}
+          className="border p-2 rounded"
+        />
+        <input
+          type="number"
+          placeholder="Min Humidity"
+          value={humidityRange[0]}
+          onChange={(e) =>
+            setHumidityRange([Number(e.target.value), humidityRange[1]])
+          }
+          className="border p-2 rounded"
+        />
+        <input
+          type="number"
+          placeholder="Max Humidity"
+          value={humidityRange[1]}
+          onChange={(e) =>
+            setHumidityRange([humidityRange[0], Number(e.target.value)])
+          }
+          className="border p-2 rounded"
+        />
+        <select
+          value={condition ?? ""}
+          onChange={(e) =>
+            setCondition(e.target.value === "" ? null : Number(e.target.value))
+          }
+          className="border p-2 rounded"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <option value="">Any Weather</option>
+          <option value={0}>Clear</option>
+          <option value={1}>Cloudy</option>
+          <option value={51}>Drizzle</option>
+          <option value={61}>Rainy</option>
+          <option value={71}>Snow</option>
+        </select>
+      </div>
+
+      {/* Property cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map((p) => (
+          <div key={p.id} className="border p-4 rounded shadow">
+            <h2 className="font-bold">{p.name}</h2>
+            <p>
+              {p.city}, {p.state}, {p.country}
+            </p>
+            {weatherMap[p.id] ? (
+              <p>
+                Temp: {weatherMap[p.id].temperature}°C, Humidity:{" "}
+                {weatherMap[p.id].humidity}%, Code:{" "}
+                {weatherMap[p.id].weathercode}
+              </p>
+            ) : (
+              <p>Loading weather...</p>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
