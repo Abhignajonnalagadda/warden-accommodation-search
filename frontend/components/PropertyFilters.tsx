@@ -249,14 +249,14 @@ export const PropertyFilters = ({
               className="w-full flex items-center justify-between px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-left bg-white"
             >
               <span className="text-sm text-gray-700">
-                {selectedTagsCount > 0
-                  ? `${selectedTagsCount} selected`
-                  : "Select amenities"}
-                {selectedTagsCount > 0 && (
-                  <span className="ml-2 bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">
+              {selectedTagsCount > 0 && (
+                  <span className="mr-2 bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">
                     {selectedTagsCount}
                   </span>
                 )}
+                {selectedTagsCount > 0
+                  ? "selected"
+                  : "Select amenities"}
               </span>
               <svg
                 className={`w-4 h-4 text-gray-500 transition-transform ${
