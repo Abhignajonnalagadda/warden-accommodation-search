@@ -1,5 +1,5 @@
 import { Property, Weather, FilterState } from "@/types";
-import { getWeatherConditionLabel } from './weather';
+import { getWeatherConditionLabel } from "./weather";
 
 export const filterProperties = (
   properties: Property[],
@@ -25,7 +25,7 @@ export const filterProperties = (
 
     // Weather filters
     const weather = weatherMap[property.id];
-    if (!weather) return true; // Show properties without weather data
+    if (!weather) return true;
 
     // Temperature range
     if (

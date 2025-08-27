@@ -12,6 +12,8 @@ export const PropertyFilters = ({
   filters,
   onFiltersChange,
   allTags,
+  resetFilters,
+  filteredCount,
 }: PropertyFiltersProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(false);
@@ -84,6 +86,18 @@ export const PropertyFilters = ({
             </div>
           </div>
 
+          {/* Reset Filters Button - Non-mobile */}
+          <button
+            onClick={resetFilters}
+            disabled={filteredCount === 0}
+            className="hidden lg:flex items-center space-x-2 bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-50"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span className="text-sm font-medium">Reset All</span>
+          </button>
+          
           {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}

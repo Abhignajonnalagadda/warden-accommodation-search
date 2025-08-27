@@ -45,6 +45,8 @@ export default function Home() {
           filters={filters}
           onFiltersChange={updateFilters}
           allTags={PROPERTY_TAGS}
+          resetFilters={resetFilters}
+          filteredCount={filteredCount}
         />
         <PropertiesGrid 
           properties={filteredProperties} 

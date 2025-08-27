@@ -32,6 +32,8 @@ export interface PropertyFiltersProps {
   filters: FilterState;
   onFiltersChange: (filters: Partial<FilterState>) => void;
   allTags: string[];
+  resetFilters: () => void;
+  filteredCount: number;
 }
 
 export interface PropertyWeatherCardProps {
