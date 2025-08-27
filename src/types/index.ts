@@ -1,16 +1,16 @@
 export interface Property {
   id: number;
   name: string;
-  city: string;
-  state: string;
-  country: string;
-  lat: number;
-  lng: number;
-  geohash5: string;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  lat: number | null;
+  lng: number | null;
+  geohash5: string | null;
   isActive: boolean;
-  tags: string[];
-  createdAt: string;
-  updatedAt: string;
+  tags: any; // JsonValue from Prisma
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Weather {

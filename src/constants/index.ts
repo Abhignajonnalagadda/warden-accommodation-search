@@ -37,7 +37,9 @@ export const PROPERTY_TAGS = [
 ];
 
 export const API_ENDPOINTS = {
-  PROPERTIES: 'http://localhost:5000/get-properties'
+  PROPERTIES: '/api/properties',  // Internal Next.js API route
+  WEATHER: '/api/weather'         // Internal Next.js API route
 } as const;
 
+// Keep the external weather API for reference (we might use it directly in some cases)
 export const WEATHER_API_BASE = 'https://api.open-meteo.com/v1/forecast';

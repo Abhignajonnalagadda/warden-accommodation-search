@@ -100,7 +100,7 @@ export const PropertyWeatherCard = ({ property, weather }: PropertyWeatherCardPr
               🏷️ Amenities
             </p>
             <div className="flex flex-wrap gap-2">
-              {property.tags.slice(0, 4).map((tag) => (
+              {Array.isArray(property.tags) && property.tags.slice(0, 4).map((tag) => (
                 <span
                   key={tag}
                   className={`px-2 py-1 text-xs rounded-full border font-medium ${

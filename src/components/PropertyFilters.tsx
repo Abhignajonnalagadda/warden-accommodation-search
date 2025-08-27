@@ -7,6 +7,7 @@ import {
   HUMIDITY_RANGE,
 } from "@/constants";
 import { useState, useEffect, useRef } from "react";
+import { isFilterActive } from "@/utils/filters";
 
 export const PropertyFilters = ({
   filters,
@@ -89,7 +90,7 @@ export const PropertyFilters = ({
           {/* Reset Filters Button - Non-mobile */}
           <button
             onClick={resetFilters}
-            disabled={filteredCount === 0}
+            disabled={!isFilterActive(filters)}
             className="hidden lg:flex items-center space-x-2 bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-50"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
