@@ -16,8 +16,7 @@ export const LoadingState = ({ message = "Loading accommodations..." }: LoadingS
       </div>
 
       {/* Loading Text */}
-      <h2 className="text-xl font-bold text-gray-800 mb-2">Loading Accommodations</h2>
-      <p className="text-gray-600 mb-6">{message}</p>
+      <h2 className="text-xl font-bold text-gray-800 mb-2">{message}</h2>
 
       {/* Animated Dots */}
       <div className="flex justify-center space-x-1">

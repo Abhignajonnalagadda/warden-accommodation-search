@@ -25,7 +25,7 @@ export interface FilterState {
   tempRange: [number, number];
   humidityRange: [number, number];
   selectedTags: string[];
-  condition: number; // -1 means "Any Weather", null is not used anymore
+  condition: number;
 }
 
 export interface PropertyFiltersProps {
